@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './bootstrap.min.css'
 import Header from './componets/Header'
 import NewDate from './componets/NewDate'
+import DateList from './componets/DateList'
 
 type appointment = {
   id: string
@@ -12,17 +13,23 @@ type appointment = {
   symptoms: string
 }
 
-export class App extends Component {
+interface State {
+  appointments: appointment[]
+}
+
+export class App extends Component<{}, State> {
   state = {
-    appointment: [],
+    appointments: [] as appointment[],
   }
 
   createNewDate = (data: appointment) => {
-    const appointments = [...this.state.appointment, data]
+    const appointments = [...this.state.appointments, data]
     this.setState({ appointments })
   }
 
   render() {
+    const { appointments } = this.state
+
     return (
       <div className="container">
         <Header title="Admin Veterinary Clinic" />
@@ -30,6 +37,10 @@ export class App extends Component {
         <div className="row">
           <div className="col-md-10 mx-auto">
             <NewDate createNewDate={this.createNewDate} />
+          </div>
+
+          <div className="mt-5 col-md-10 mx-auto">
+            <DateList appointments={appointments} />
           </div>
         </div>
       </div>
