@@ -11,11 +11,12 @@ type appointment = {
 
 interface Props {
   appointment: appointment
+  eraseDate: (id: string) => void
 }
 
 export class Date extends Component<Props> {
   render() {
-    const { appointment } = this.props
+    const { appointment, eraseDate } = this.props
     return (
       <div className="media mt-3">
         <div className="media-body">
@@ -38,6 +39,13 @@ export class Date extends Component<Props> {
           </p>
 
           <p className="card-text">{appointment.symptoms}</p>
+
+          <button
+            className="btn btn-danger"
+            onClick={() => eraseDate(appointment.id)}
+          >
+            Erase Date &times;
+          </button>
         </div>
       </div>
     )

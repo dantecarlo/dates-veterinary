@@ -12,11 +12,12 @@ type appointment = {
 
 interface Props {
   appointments: appointment[]
+  eraseDate: (id: string) => void
 }
 
 export class DateList extends Component<Props> {
   render() {
-    const { appointments } = this.props
+    const { appointments, eraseDate } = this.props
 
     return (
       <div>
@@ -28,7 +29,11 @@ export class DateList extends Component<Props> {
 
             <div className="date-list">
               {appointments.map(appointment => (
-                <Date key={appointment.id} appointment={appointment} />
+                <Date
+                  key={appointment.id}
+                  appointment={appointment}
+                  eraseDate={eraseDate}
+                />
               ))}
             </div>
           </div>
