@@ -22,6 +22,22 @@ export class App extends Component<{}, State> {
     appointments: [] as appointment[],
   }
 
+  componentDidMount() {
+    const appointmentsLS = localStorage.getItem('appointments')
+    if (appointmentsLS) {
+      this.setState({
+        appointments: JSON.parse(appointmentsLS),
+      })
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      'appointments',
+      JSON.stringify(this.state.appointments),
+    )
+  }
+
   createNewDate = (data: appointment) => {
     const appointments = [...this.state.appointments, data]
     this.setState({ appointments })
