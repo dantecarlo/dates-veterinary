@@ -24,7 +24,9 @@ export class DateList extends Component<Props> {
         <div className="card mt-2 py-5">
           <div className="card-body">
             <h2 className="card-title text-center">
-              Manage your appointments here
+              {Object.keys(appointments).length === 0
+                ? 'No Appointments'
+                : 'Manage your appointments here'}
             </h2>
 
             <div className="date-list">
