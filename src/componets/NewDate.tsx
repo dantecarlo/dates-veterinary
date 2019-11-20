@@ -20,16 +20,20 @@ interface Props {
   createNewDate: (data: appointment) => void
 }
 
+const InitialState = {
+  appointment: {
+    pet: '',
+    owner: '',
+    date: '',
+    time: '',
+    symptoms: '',
+  },
+  error: false,
+}
+
 export class NewDate extends Component<Props> {
   state = {
-    appointment: {
-      pet: '',
-      owner: '',
-      date: '',
-      time: '',
-      symptoms: '',
-    },
-    error: false,
+    ...InitialState,
   }
 
   handleChange = (e: eventChange) => {
@@ -60,13 +64,18 @@ export class NewDate extends Component<Props> {
     }
 
     const newDate = { ...appointment, id: uuid() }
-    console.log(newDate)
+
     const { createNewDate } = this.props
     createNewDate(newDate)
+
+    this.setState({
+      ...InitialState,
+    })
   }
 
   render() {
     const { pet, owner, date, time, symptoms } = this.state.appointment
+    const { error } = this.state
 
     return (
       <div className="card mt-5 py-5">
@@ -74,6 +83,12 @@ export class NewDate extends Component<Props> {
           <h2 className="card-title text-center mb-5">
             Fill the form to create a new Date
           </h2>
+
+          {error && (
+            <div className="alert alert-danger mt-2 mb-5 text-center">
+              All field are required
+            </div>
+          )}
 
           <form onSubmit={this.handleSubmit}>
             <div className="form-group row">
